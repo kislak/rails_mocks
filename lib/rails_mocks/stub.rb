@@ -19,6 +19,10 @@ module RailsMocks
       receiver
     end
 
+    def file
+      stub[:file]
+    end
+
     private
 
     attr_reader :stub

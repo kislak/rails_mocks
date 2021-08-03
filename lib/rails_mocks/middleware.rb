@@ -14,7 +14,13 @@ module RailsMocks
       status, headers, response = nil
       RSpec::Mocks.with_temporary_scope do
         RSpec::Mocks::Syntax.enable_expect(self.class)
+
         parsed_stubs(req).each do |stub|
+          if stub.file
+            instance_eval(File.read(stub.file))
+            next
+          end
+
           allow(stub.allow).to(stub.receiver)
         end
         status, headers, response = @app.call(req)
